@@ -1,13 +1,14 @@
 package com.example.android.bakingappbyg;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.android.bakingappbyg.Utils.JsonString;
 import com.example.android.bakingappbyg.Utils.JsonUtils;
@@ -16,66 +17,64 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String EXTRA_POSITION = "extra_position";
-    private static final int DEFAULT_POSITION = -1;
+    public static final String EXTRA_ID = "EXTRA_ID";
+    public static final String EXTRA_NAME = "EXTRA_NAME";
+    public static final String EXTRA_INGREDIENTS = "EXTRA_INGREDIENTS";
+    public static final String EXTRA_STEPS = "EXTRA_STEPS";
+
+    public static final String LOG_TAG = MainActivity.class.getName();
+    public static Context context;
+    private ArrayList<Recipes> recipesList = new ArrayList<>();
+    private View view;
+    private RecyclerView recipesRecyclerView;
+    /**
+     * Adapter for the list of recipes
+     */
+    private RecipeMainAdapter.OnItemClickListener mListener;
+    private RecipeMainAdapter mAdapter = new RecipeMainAdapter(recipesList, mListener);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
 
-//        Intent intent = getIntent();
-//        if (intent == null) {
-//            closeOnError();
-//        }
-//
-//        int position = 0;
-//        if (intent != null) {
-//            position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
-//        }
-//        if (position == DEFAULT_POSITION) {
-//            // EXTRA_POSITION not found in intent
-//            closeOnError();
-//            return;
-//        }
+        // Find a reference to the {@link ListView} in the layout
+        recipesRecyclerView = findViewById(R.id.list_item);
+        recipesList = JsonUtils.parseRecipesJson(JsonString.strJson);
 
-
-        ArrayList<Recipes> recipes = JsonUtils.parseRecipesJson(JsonString.strJson);
-        Log.i("json", String.valueOf(recipes));
-
-        if (recipes == null) {
-            // Bakes data unavailable
-            closeOnError();
-            return;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recipesRecyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+        } else {
+            recipesRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
         }
+        mListener = new RecipeMainAdapter.OnItemClickListener() {
 
-
-        ArrayAdapter<Recipes> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, recipes);
-
-        // Simplification: Using a ListView instead of a RecyclerView
-        ListView listView = findViewById(R.id.bakes_listview);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                launchDetailActivity(position);
+            public void onItemClick(Recipes item) {
+
+                String currentRecipeID = item.getID();
+                String currentRecipeName = item.getName();
+//                ArrayList<String[]> currentRecipeIngredients = item.getIngredients();
+//                ArrayList<String[]> currentRecipeSteps = item.getSteps();
+
+                Intent intent1 = new Intent(getApplicationContext(), DetailActivity.class);
+
+                intent1.putExtra(EXTRA_ID, currentRecipeID);
+                intent1.putExtra(EXTRA_NAME, currentRecipeName);
+//                intent1.putParcelableArrayListExtra(EXTRA_INGREDIENTS, currentRecipeIngredients);
+//                intent1.putStringArrayListExtra(EXTRA_STEPS, currentRecipeSteps);
+
+                startActivity(intent1);
             }
-        });
+        };
+        mAdapter = new RecipeMainAdapter(recipesList, mListener);
 
-        Bundle extras = getIntent().getExtras();
-        if( extras != null && extras.containsKey("test")){
-            Log.d("FCM Notification", "Contains" + extras.get("test"));
-        }
-    }
-    private void closeOnError() {
-        finish();
-        Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
+        // Set the adapter on the {@link ListView}
+        // so the list can be populated in the user interface
+        recipesRecyclerView.setAdapter(mAdapter);
+        recipesRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-//    private void launchDetailActivity(int position) {
-//        Intent intent = new Intent(this, DetailActivity.class);
-//        intent.putExtra(DetailActivity.EXTRA_POSITION, position);
-//        startActivity(intent);
-//    }
 }

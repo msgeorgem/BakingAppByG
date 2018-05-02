@@ -1,18 +1,13 @@
 package com.example.android.bakingappbyg;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Recipes {
 
+    private String mId;
     private String mName;
-    private List<String> mIngredients = null;
-    private List<String> mSteps = null;
-    private String mQuantity;
-    private String mMeasure;
-
-    private String mShortDescription;
-    private String mDescription;
-    private String mVideoURL;
+    private ArrayList<String[]> mIngredients = null;
+    private ArrayList<String[]> mSteps = null;
 
 
     /**
@@ -20,8 +15,10 @@ public class Recipes {
      */
     public Recipes() {
     }
-    public Recipes(String name, List<String> ingredients, List<String> steps) {
 
+    public Recipes(String id, String name, ArrayList<String[]> ingredients, ArrayList<String[]> steps) {
+
+        this.mId = id;
         this.mName = name;
         this.mIngredients = ingredients;
         this.mSteps = steps;
@@ -29,35 +26,22 @@ public class Recipes {
 
     }
 
+    public String getID() {
+        return mId;
+    }
     public String getName() {
         return mName;
     }
-    public List<String> getIngredients() {
+
+    public ArrayList<String[]> getIngredients() {
         return mIngredients;
     }
-    public List<String> getSteps() {
+
+    public ArrayList<String[]> getSteps() {
         return mSteps;
     }
 
 
 
-//    public String getQuantity() {
-//        return mQuantity;
-//    }
-//    public String getMeasure() {
-//        return mMeasure;
-//    }
-//    public String getIngredient() {
-//        return mIngredient;
-//    }
-//    public String getShortDescription() {
-//        return mShortDescription;
-//    }
-//    public String getDescription() {
-//        return mDescription;
-//    }
-//    public String getVideoURL() {
-//        return mVideoURL;
-//    }
 
 }

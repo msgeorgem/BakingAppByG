@@ -2,4 +2,6 @@
     <string name="app_name">BakingAppByG</string>
     <!-- Error messages-->
     <string name="detail_error_message">Bake data not available</string>
+    <string name="title_activity_detail">Details</string>
+    <string name="detail_ingredients_label">Ingredients</string>
 </resources>
