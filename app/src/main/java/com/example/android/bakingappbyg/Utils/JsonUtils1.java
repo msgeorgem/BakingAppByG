@@ -10,9 +10,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class JsonUtils {
+public class JsonUtils1 {
 
-    public static ArrayList<Recipes> parseRecipesJson(String json) {
+    public static Recipes parseRecipesJson(String json) {
 
         Recipes recipes = null;
         String mName;
@@ -45,6 +45,7 @@ public class JsonUtils {
                     ingredientArr[2] = ingredient.getString("measure");
                     ingredientArr[3] = ingredient.getString("ingredient");
                     mIngredients.add(ingredientArr);
+
 //                    Log.i("ingredients" + " " + n, mId +" " + mQuantity + " " + mMeasure + " " + mIngredient);
                     Log.i("ingredients", String.valueOf(mIngredients));
                 }
@@ -59,11 +60,12 @@ public class JsonUtils {
                     stepArr[2] = step.getString("description");
                     stepArr[3] = step.getString("videoURL");
                     mSteps.add(stepArr);
+
 //                    Log.i("steps" + " " + m, mId +" " + mShortDescription + " " + mDescription + " " + mVideoURL);
                     Log.i("steps", String.valueOf(mSteps));
                 }
 
-                mRecipes.add(new Recipes(mId, mName, mIngredients, mSteps));
+                recipes = new Recipes(mId, mName, mIngredients, mSteps);
 
             }
 
@@ -72,6 +74,6 @@ public class JsonUtils {
 
         }
 
-        return mRecipes;
+        return recipes;
     }
 }
