@@ -39,13 +39,14 @@ public class JsonUtils12 {
 
                 for (int n = 0; n < ingredientsArray.length(); n++) {
                     JSONObject ingredient = ingredientsArray.getJSONObject(n);
-                    String mQuantity = ingredient.getString("quantity");
-                    String mMeasure = ingredient.getString("measure");
-                    String mIngredient = ingredient.getString("ingredient");
-                    mIngredients.add(new String[]{mId});
-                    mIngredients.add(new String[]{mQuantity});
-                    mIngredients.add(new String[]{mMeasure});
-                    mIngredients.add(new String[]{mIngredient});
+
+                    String[] ingredients = new String[4];
+                    ingredients[0] = mId;
+                    ingredients[1] = ingredient.getString("quantity");
+                    ingredients[2] = ingredient.getString("measure");
+                    ingredients[3] = ingredient.getString("ingredient");
+                    mIngredients.add(ingredients);
+
 //                    Log.i("ingredients" + " " + n, mId +" " + mQuantity + " " + mMeasure + " " + mIngredient);
                     Log.i("ingredients", String.valueOf(mIngredients));
                 }
@@ -54,13 +55,13 @@ public class JsonUtils12 {
 
                 for (int m = 0; m < stepsArray.length(); m++) {
                     JSONObject step = stepsArray.getJSONObject(m);
-                    String mShortDescription = step.getString("shortDescription");
-                    String mDescription = step.getString("description");
-                    String mVideoURL = step.getString("videoURL");
-                    mSteps.add(new String[]{mId});
-                    mSteps.add(new String[]{mShortDescription});
-                    mSteps.add(new String[]{mDescription});
-                    mSteps.add(new String[]{mVideoURL});
+
+                    String[] steps = new String[4];
+                    steps[0] = mId;
+                    steps[1] = step.getString("shortDescription");
+                    steps[2] = step.getString("description");
+                    steps[3] = step.getString("videoURL");
+                    mSteps.add(steps);
 //                    Log.i("steps" + " " + m, mId +" " + mShortDescription + " " + mDescription + " " + mVideoURL);
                     Log.i("ingredients", String.valueOf(mSteps));
                 }
