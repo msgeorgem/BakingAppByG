@@ -35,12 +35,7 @@ public class DetailActivity extends AppCompatActivity {
         if (intent == null) {
             closeOnError();
         }
-//        int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
-//        if (position == DEFAULT_POSITION) {
-//            // EXTRA_POSITION not found in intent
-//            closeOnError();
-//            return;
-//        }
+
         Recipes recipesList = JsonUtils1.parseRecipesJson(JsonString.strJson);
 
         currentRecipeID = intent.getStringExtra(MainActivity.EXTRA_ID);
@@ -50,33 +45,34 @@ public class DetailActivity extends AppCompatActivity {
         recipesIngredients = recipesList.getIngredients();
 
 
-        String[] ingredientArr = new String[3];
-
         for (int i = 0; i < recipesIngredients.size(); i++) {
             String[] elements = recipesIngredients.get(i);
             String firstElementRecipe = elements[0];
 
             if (firstElementRecipe.equals(currentRecipeID)) {
+                String[] ingredientArr = new String[3];
                 ingredientArr[0] = elements[1];
                 ingredientArr[1] = elements[2];
                 ingredientArr[2] = elements[3];
                 currentRecipeIngredients.add(ingredientArr);
-                Log.i("current_array", Arrays.toString(ingredientArr));
             }
         }
 
-
-        int size = currentRecipeIngredients.size();
-        Log.i("current_array_size", String.valueOf(size));
-
-
         StringBuilder builder2 = new StringBuilder();
         for (String[] details : currentRecipeIngredients) {
-            builder2.append("* ").append(Arrays.toString(details)).append("\n");
+
+            String formattedString = Arrays.toString(details)
+                    .replace(",", "")  //remove the commas
+                    .replace("[", "")  //remove the right bracket
+                    .replace("]", "")  //remove the left bracket
+                    .trim();
+            Log.i("current_detail", formattedString);
+            builder2.append("* ").append(formattedString).append("\n");
         }
+
+
         mIngredientsTextView.setText(builder2.toString());
     }
-
 
     private void closeOnError() {
         finish();
