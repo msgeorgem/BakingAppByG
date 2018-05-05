@@ -19,8 +19,6 @@ public class JsonUtils1 {
         String mId;
 
         // Create an empty Lists that we can start adding Ingredients and Steps to
-        ArrayList<Recipes> mRecipes = new ArrayList<>();
-        ArrayList<String> mNames = new ArrayList<>();
         ArrayList<String[]> mIngredients = new ArrayList<String[]>();
         ArrayList<String[]> mSteps = new ArrayList<String[]>();
 
