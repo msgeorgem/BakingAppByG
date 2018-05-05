@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.example.android.bakingappbyg.Utils.JsonString;
 import com.example.android.bakingappbyg.Utils.JsonUtils;
@@ -19,13 +18,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "EXTRA_ID";
     public static final String EXTRA_NAME = "EXTRA_NAME";
-    public static final String EXTRA_INGREDIENTS = "EXTRA_INGREDIENTS";
-    public static final String EXTRA_STEPS = "EXTRA_STEPS";
+
 
     public static final String LOG_TAG = MainActivity.class.getName();
     public static Context context;
     private ArrayList<Recipes> recipesList = new ArrayList<>();
-    private View view;
     private RecyclerView recipesRecyclerView;
     /**
      * Adapter for the list of recipes
@@ -56,15 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
                 String currentRecipeID = item.getID();
                 String currentRecipeName = item.getName();
-//                ArrayList<String[]> currentRecipeIngredients = item.getIngredients();
-//                ArrayList<String[]> currentRecipeSteps = item.getSteps();
 
                 Intent intent1 = new Intent(getApplicationContext(), DetailActivity.class);
 
                 intent1.putExtra(EXTRA_ID, currentRecipeID);
                 intent1.putExtra(EXTRA_NAME, currentRecipeName);
-//                intent1.putParcelableArrayListExtra(EXTRA_INGREDIENTS, currentRecipeIngredients);
-//                intent1.putStringArrayListExtra(EXTRA_STEPS, currentRecipeSteps);
 
                 startActivity(intent1);
             }
@@ -76,5 +69,6 @@ public class MainActivity extends AppCompatActivity {
         recipesRecyclerView.setAdapter(mAdapter);
         recipesRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
+
 
 }

@@ -9,7 +9,6 @@ public class Recipes {
     private ArrayList<String[]> mIngredients = null;
     private ArrayList<String[]> mSteps = null;
 
-
     /**
      * No args constructor for use in serialization
      */
@@ -22,8 +21,6 @@ public class Recipes {
         this.mName = name;
         this.mIngredients = ingredients;
         this.mSteps = steps;
-
-
     }
 
     public String getID() {
@@ -32,11 +29,9 @@ public class Recipes {
     public String getName() {
         return mName;
     }
-
     public ArrayList<String[]> getIngredients() {
         return mIngredients;
     }
-
     public ArrayList<String[]> getSteps() {
         return mSteps;
     }

@@ -40,7 +40,6 @@ public class RecipeMainAdapter extends RecyclerView.Adapter<RecipeMainAdapter.Ma
         final Recipes currentRecipe = mListAdapter.get(position);
 
         viewHolder.recipeTextView.setText(currentRecipe.getName());
-
     }
 
     public interface OnItemClickListener {
@@ -56,7 +55,6 @@ public class RecipeMainAdapter extends RecyclerView.Adapter<RecipeMainAdapter.Ma
             this.recipeTextView = view
                     .findViewById(R.id.content);
         }
-
 
         public void bind(final Recipes item, final OnItemClickListener listener) {
 

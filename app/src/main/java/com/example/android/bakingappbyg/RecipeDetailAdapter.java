@@ -12,10 +12,10 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
 
 
     private final OnItemClickListener listener;
-    private ArrayList<String> mListStepsAdapter;
+    private ArrayList<String[]> mListStepsAdapter;
 
 
-    public RecipeDetailAdapter(ArrayList<String> listSteps, OnItemClickListener listener) {
+    public RecipeDetailAdapter(ArrayList<String[]> listSteps, OnItemClickListener listener) {
         mListStepsAdapter = listSteps;
         this.listener = listener;
     }
@@ -37,14 +37,13 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
     public void onBindViewHolder(final MainViewHolder viewHolder, int position) {
         viewHolder.bind(mListStepsAdapter.get(position), listener);
         // Get the {@link News} object located at this position in the list
-        final String currentStep = mListStepsAdapter.get(position);
+        final String[] currentStep = mListStepsAdapter.get(position);
 
-        viewHolder.detailStepTextView.setText(currentStep);
-
+        viewHolder.detailStepTextView.setText(currentStep[0]);
     }
 
     public interface OnItemClickListener {
-        void onItemClick(String item);
+        void onItemClick(String[] item);
     }
 
     public static class MainViewHolder extends RecyclerView.ViewHolder {
@@ -57,8 +56,7 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
                     .findViewById(R.id.detail_step);
         }
 
-
-        public void bind(final String item, final OnItemClickListener listener) {
+        public void bind(final String[] item, final OnItemClickListener listener) {
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,7 +65,5 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
                 }
             });
         }
-
     }
-
 }
