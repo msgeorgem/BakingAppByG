@@ -12,53 +12,53 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
 
 
     private final OnItemClickListener listener;
-    private ArrayList<Recipes> mListAdapter;
+    private ArrayList<String> mListStepsAdapter;
 
 
-    public RecipeDetailAdapter(ArrayList<Recipes> listRecipes, OnItemClickListener listener) {
-        mListAdapter = listRecipes;
+    public RecipeDetailAdapter(ArrayList<String> listSteps, OnItemClickListener listener) {
+        mListStepsAdapter = listSteps;
         this.listener = listener;
     }
 
     @Override
     public int getItemCount() {
-        return mListAdapter.size();
+        return mListStepsAdapter.size();
     }
 
     @Override
     public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.single_recipe, parent, false);
+                .inflate(R.layout.single_step_detail, parent, false);
         MainViewHolder vh = new MainViewHolder(itemView);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(final MainViewHolder viewHolder, int position) {
-        viewHolder.bind(mListAdapter.get(position), listener);
+        viewHolder.bind(mListStepsAdapter.get(position), listener);
         // Get the {@link News} object located at this position in the list
-        final Recipes currentRecipe = mListAdapter.get(position);
+        final String currentStep = mListStepsAdapter.get(position);
 
-//        viewHolder.ingredientsTextView.setText(currentRecipe.getIngredients());
+        viewHolder.detailStepTextView.setText(currentStep);
 
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Recipes item);
+        void onItemClick(String item);
     }
 
     public static class MainViewHolder extends RecyclerView.ViewHolder {
-        TextView ingredientsTextView;
+        TextView detailStepTextView;
 
 
         private MainViewHolder(View view) {
             super(view);
-            this.ingredientsTextView = view
-                    .findViewById(R.id.ingredients);
+            this.detailStepTextView = view
+                    .findViewById(R.id.detail_step);
         }
 
 
-        public void bind(final Recipes item, final OnItemClickListener listener) {
+        public void bind(final String item, final OnItemClickListener listener) {
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
